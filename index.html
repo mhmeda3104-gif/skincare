@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skincare AI - تحليل البشرة وتخصيص الروتين بالذكاء الاصطناعي</title>
+  
+  <!-- Google Fonts: Tajawal & Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Standalone Complete CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Tailwind CSS via CDN (Optional enhancement) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4',
+                400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d',
+                800: '#9d174d', 900: '#831843'
+              }
+            },
+            fontFamily: {
+              sans: ['Tajawal', 'Cairo', 'sans-serif']
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- Printable Report Header (Visible only on print) -->
+  <div class="print-only-header">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 style="font-size: 1.5rem; font-weight: 800; color: #0f172a;">تقرير فحص وصحة البشرة - skincare AI</h1>
+        <p style="font-size: 0.75rem; color: #64748b;">نظام التحليل السريري المعتمد بالذكاء الاصطناعي والرؤية الحاسوبية</p>
+      </div>
+      <div style="text-align: left; font-size: 0.75rem; color: #64748b;">
+        <p>التاريخ: <span id="printDate">2026</span></p>
+        <p>النظام: skincare AI Engine</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <div class="max-w-7xl header-inner">
+      
+      <!-- Brand Logo: skincare AI -->
+      <div class="flex items-center gap-3">
+        <a href="#" class="flex items-center gap-3">
+          <div class="brand-badge">
+            <div class="brand-badge-inner">
+              AI
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="brand-title">skincare <span style="background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI</span></span>
+              <span id="apiStatusBadge" class="badge-pill bg-slate-100">المحرك الافتراضي</span>
+            </div>
+            <p class="brand-subtitle">نظام تحليل البشرة وتخصيص العناية بالذكاء الاصطناعي</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Actions: Theme Toggle -->
+      <div class="flex items-center gap-3">
+        <!-- Dark Mode Toggle -->
+        <button id="themeToggleBtn" aria-label="Toggle Theme" class="btn-secondary" style="padding: 0.5rem 0.75rem;">
+          <svg class="icon-sm" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Navigation Tabs Bar -->
+    <div id="navTabs" class="max-w-7xl nav-tabs-bar">
+      <button data-tab-target="analyzerSection" class="nav-tab-btn active">
+        <span>🔍</span> فحص البشرة والروتين
+      </button>
+      <button data-tab-target="chatbotSection" class="nav-tab-btn">
+        <span>💬</span> المستشار التجميلي الذكي
+      </button>
+      <button data-tab-target="ingredientCheckerSection" class="nav-tab-btn">
+        <span>🧪</span> فاحص مكونات المنتجات
+      </button>
+      <button data-tab-target="historySection" class="nav-tab-btn">
+        <span>📊</span> سجل التحليلات والتطور
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-7xl py-8 px-4" style="flex: 1;">
+
+    <!-- ==================== TAB 1: SKIN ANALYZER ==================== -->
+    <section id="analyzerSection" class="tab-content-section space-y-8">
+      
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="max-w-3xl">
+          <div class="badge-pill bg-primary-100 mb-4">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899; display: inline-block;"></span>
+            ذكاء اصطناعي سريري وتحليل طيفي للوجه
+          </div>
+          <h1 style="font-size: 2.25rem; font-weight: 900; line-height: 1.25; margin-bottom: 1rem;">
+            اكتشفِ احتياجات بشرتكِ بدقة <br>
+            <span class="gradient-text">مع خبير الذكاء الاصطناعي skincare AI</span>
+          </h1>
+          <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            التقط أو ارفع صورة لوجهك ليقوم النظام بتحليل المسام، درجة الترطيب، إفراز الدهون، ومستوى الحبوب والحاجز الجلدي، ثم يقترح لك روتيناً طبياً مخصصاً بمنتجات معتمدة ومناسبة لميزانيتك.
+          </p>
+          <div class="flex flex-wrap gap-4" style="font-size: 0.8125rem; font-weight: 600; color: var(--text-muted);">
+            <span>✓ مسح فوري لمعالم الوجه</span>
+            <span>✓ كشف نوع البشرة والمشاكل</span>
+            <span>✓ روتين صباحي ومسائي تفصيلي</span>
+            <span>✓ ترشيح منتجات طبية موثوقة</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1 & 2: Image Capture & Questionnaire Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Image Viewport (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="glass-card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h2 style="font-size: 1.15rem; font-weight: 700;" class="flex items-center gap-2">
+                <span style="width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; background: #fce7f3; color: #be185d; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.875rem;">1</span>
+                التقاط أو رفع صورة الوجه
+              </h2>
+              <button id="resetImageBtn" class="hidden" style="font-size: 0.75rem; color: #f43f5e; font-weight: 700; cursor: pointer;">
+                ✕ إلغاء / صورة جديدة
+              </button>
+            </div>
+
+            <!-- Viewport Container with Canvas Overlay -->
+            <div class="scanner-viewport">
+              <video id="cameraVideo" autoplay playsinline muted class="hidden w-full h-full" style="object-fit: cover;"></video>
+              <img id="imagePreview" alt="Face Preview" class="hidden w-full h-full" style="object-fit: cover;">
+              <canvas id="scannerCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;"></canvas>
+
+              <!-- Upload Placeholder -->
+              <div id="uploadDropZone" class="w-full h-full tech-grid-bg flex flex-col items-center justify-center p-6 text-center" style="cursor: pointer;">
+                <div style="width: 5rem; height: 5rem; border-radius: 50%; background: rgba(236, 72, 153, 0.15); display: flex; align-items: center; justify-content: center; font-size: 2.25rem; margin-bottom: 1rem; border: 1px solid rgba(236, 72, 153, 0.3);">
+                  📸
+                </div>
+                <h3 style="font-size: 1.1rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem;">انقر لرفع صورة أو اسحبها هنا</h3>
+                <p style="font-size: 0.8125rem; color: #94a3b8; max-width: 22rem; margin-bottom: 1.25rem;">
+                  يفضل صورة سيلفي واضحة بإضاءة طبيعية جيدة وبدون مكياج للحصول على أدق نتيجة
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                  <label for="faceFileInput" class="btn-primary" style="padding: 0.625rem 1.25rem; font-size: 0.8125rem; cursor: pointer;">
+                    اختر صورة من جهازك
+                  </label>
+                  <button id="startCameraBtn" type="button" class="btn-secondary" style="background: #1e293b; color: #f8fafc; border-color: #334155;">
+                    <svg class="icon-sm" style="color: #38bdf8;" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    <span>فتح الكاميرا المباشرة</span>
+                  </button>
+                </div>
+                <input type="file" id="faceFileInput" accept="image/*" class="hidden">
+              </div>
+
+              <!-- Live Camera Capture Trigger -->
+              <button id="capturePhotoBtn" type="button" class="hidden btn-primary" style="position: absolute; bottom: 1.5rem; z-index: 20; border-radius: 9999px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ffffff; display: inline-block;"></span>
+                التقاط الصورة الآن
+              </button>
+            </div>
+
+            <!-- Demo 1-Click Samples -->
+            <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.75rem;">
+                أو جرب بنقرة واحدة باستخدام نماذج سريرية جاهزة:
+              </p>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <button type="button" data-preset="oily" class="preset-btn">
+                  <span style="font-size: 1.25rem; display: block;">🫧</span>
+                  <strong style="font-size: 0.8125rem; display: block; color: var(--text-main);">دهنية وحبوب</strong>
+                  <span style="font-size: 0.6875rem; color: var(--text-muted);">Oily & Acne</span>
+                </button>
+                <button type="button" data-preset="dry" class="preset-btn">
+                  <span style="font-size: 1.25rem; display: block;">🌵</span>
+                  <strong style="font-size: 0.8125rem; display: block; color: var(--text-main);">جافة وحساسة</strong>
+                  <span style="font-size: 0.6875rem; color: var(--text-muted);">Dry & Sensitive</span>
+                </button>
+                <button type="button" data-preset="aging" class="preset-btn">
+                  <span style="font-size: 1.25rem; display: block;">⏳</span>
+                  <strong style="font-size: 0.8125rem; display: block; color: var(--text-main);">خطوط وتجاعيد</strong>
+                  <span style="font-size: 0.6875rem; color: var(--text-muted);">Aging & Lines</span>
+                </button>
+                <button type="button" data-preset="normal" class="preset-btn">
+                  <span style="font-size: 1.25rem; display: block;">✨</span>
+                  <strong style="font-size: 0.8125rem; display: block; color: var(--text-main);">متوازنة ونضرة</strong>
+                  <span style="font-size: 0.6875rem; color: var(--text-muted);">Normal & Glow</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: Profile Questionnaire (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="glass-card p-6">
+            <h2 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;" class="flex items-center gap-2">
+              <span style="width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; background: #e0e7ff; color: #4338ca; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.875rem;">2</span>
+              بيانات مساعدة لزيادة دقة الفحص
+            </h2>
+
+            <div class="space-y-4">
+              <div>
+                <label for="userAgeInput" style="display: block; font-size: 0.8125rem; font-weight: 700; margin-bottom: 0.25rem;">
+                  العمر التقريبي
+                </label>
+                <input type="number" id="userAgeInput" value="26" min="12" max="95" class="form-input">
+              </div>
+
+              <div>
+                <label for="userConcernInput" style="display: block; font-size: 0.8125rem; font-weight: 700; margin-bottom: 0.25rem;">
+                  أكبر مشكلة أو هاجس يؤرقك في بشرتك
+                </label>
+                <select id="userConcernInput" class="form-input">
+                  <option value="balance">توازن عام ونضارة (Overall Health & Glow)</option>
+                  <option value="acne">حب الشباب والبثور المفاجئة (Acne & Breakouts)</option>
+                  <option value="pores">المسام الواسعة والرؤوس السوداء (Large Pores & Blackheads)</option>
+                  <option value="pigmentation">التصبغات والبقع وآثار الحبوب (Hyperpigmentation)</option>
+                  <option value="dryness">الجفاف وتقشر البشرة وشحوبها (Dryness & Dullness)</option>
+                  <option value="aging">الخطوط الدقيقة وفقدان المرونة (Fine Lines & Firmness)</option>
+                  <option value="redness">الاحمرار والتحسس السريع (Redness & Sensitivity)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="userSensitivityInput" style="display: block; font-size: 0.8125rem; font-weight: 700; margin-bottom: 0.25rem;">
+                  درجة تحسس بشرتك مع المنتجات الجديدة
+                </label>
+                <select id="userSensitivityInput" class="form-input">
+                  <option value="low">منخفضة (نادراً ما تتحسس)</option>
+                  <option value="medium" selected>متوسطة (تتحسس أحياناً من بعض العطور أو المقشرات)</option>
+                  <option value="high">عالية جداً (تحمر وتلتهب سريعاً)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="userSunInput" style="display: block; font-size: 0.8125rem; font-weight: 700; margin-bottom: 0.25rem;">
+                  معدل تعرضك للشمس يومياً
+                </label>
+                <select id="userSunInput" class="form-input">
+                  <option value="indoor">معظم الوقت داخل المنزل/المكتب</option>
+                  <option value="moderate" selected>معتدل (30 إلى 60 دقيقة يومياً)</option>
+                  <option value="high">مرتفع (أكثر من ساعتين في الشمس المباشرة)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Start Analysis CTA -->
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <button id="startAnalysisBtn" disabled class="btn-primary w-full" style="padding: 0.875rem 1.5rem; font-size: 1rem;">
+                <span>⚡</span>
+                بدء التحليل الشامل بالذكاء الاصطناعي
+              </button>
+              <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">
+                يتم فحص الصورة بأمان محلياً أو عبر Gemini Vision بأعلى معايير الخصوصية
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scanning Progress Live Banner -->
+      <div id="scanProgressContainer" class="hidden glass-card p-6 text-center space-y-3" style="border-color: rgba(236, 72, 153, 0.4); background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(139, 92, 246, 0.08));">
+        <div style="font-size: 2rem; display: inline-block;">✦</div>
+        <h3 id="scanStatusText" style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">
+          جاري تشغيل خوارزميات المسح الطيفي...
+        </h3>
+        <p style="font-size: 0.8125rem; color: var(--text-muted); max-width: 32rem; margin: 0 auto;">
+          يقوم الذكاء الاصطناعي الآن برسم الخريطة الحرارية للمسام، فحص الحاجز الدهني، وقياس مؤشرات الالتهاب والترطيب.
+        </p>
+      </div>
+
+      <!-- ==================== RESULTS DASHBOARD ==================== -->
+      <div id="resultsDashboard" class="hidden space-y-8">
+        
+        <!-- Score & Vital Signs Header Card -->
+        <div class="glass-card p-8">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <!-- Overall Score Dial -->
+            <div class="flex items-center gap-6">
+              <div style="position: relative; width: 8rem; height: 8rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                <svg width="100%" height="100%" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="8" style="color: rgba(148, 163, 184, 0.2);" />
+                  <circle id="scoreDialCircle" cx="50" cy="50" r="42" fill="none" stroke="#10b981" stroke-width="8" stroke-linecap="round" class="gauge-circle" style="stroke-dasharray: 264; stroke-dashoffset: 40;" />
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                  <span id="overallScoreValue" style="font-size: 2rem; font-weight: 900; line-height: 1;">82</span>
+                  <span style="font-size: 0.6875rem; color: var(--text-muted); font-weight: 700;">/ 100</span>
+                </div>
+              </div>
+
+              <div>
+                <span style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 0.25rem;">مؤشر صحة البشرة العام</span>
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <span id="scoreVerdictBadge" class="badge-pill bg-emerald-100">حالة ممتازة</span>
+                  <span id="detectedSkinTypeBadge" class="badge-pill bg-primary-100">بشرة مختلطة</span>
+                </div>
+                <p style="font-size: 0.8125rem; color: var(--text-muted);">
+                  العمر البيولوجي المقدر للبشرة: <strong id="detectedSkinAge" style="color: var(--text-main);">25 سنة</strong>
+                </p>
+              </div>
+            </div>
+
+            <!-- Print / Export Button -->
+            <div id="actionButtonsBar">
+              <button id="printReportBtn" class="btn-secondary">
+                <svg class="icon-sm" style="color: #ec4899;" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                <span>طباعة / حفظ التقرير (PDF)</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Clinical Summary -->
+          <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+            <h4 style="font-size: 0.8125rem; font-weight: 700; color: #ec4899; margin-bottom: 0.5rem;" class="flex items-center gap-2">
+              <span>🩺</span> التشخيص السريري المعتمد من skincare AI
+            </h4>
+            <p id="diagnosticSummaryText" style="font-size: 0.9375rem; color: var(--text-main); line-height: 1.7;">
+              أظهر الفحص السريري توازناً عاماً مع نشاط إفرازي في منطقة T-Zone وحاجة لتعزيز الترطيب الخلوي.
+            </p>
+          </div>
+        </div>
+
+        <!-- Radar Chart & Metrics Bars Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Radar Chart (5 Cols) -->
+          <div class="lg:col-span-5 glass-card p-6 flex flex-col justify-between">
+            <div>
+              <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;" class="flex items-center gap-2">
+                <span>🕸️</span> مخطط التوازن الطيفي للبشرة
+              </h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">تمثيل سداسي الأبعاد لركائز صحة ونضارة الجلد</p>
+            </div>
+            
+            <div style="position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 320px; display: flex; align-items: center; justify-content: center;">
+              <canvas id="skinMetricsRadarChart"></canvas>
+            </div>
+
+            <div style="font-size: 0.6875rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">
+              كلما اتسعت المساحة المظللة نحو الأطراف، دل ذلك على استقرار ونقاء أعلى.
+            </div>
+          </div>
+
+          <!-- Quantitative Metrics Bars (7 Cols) -->
+          <div class="lg:col-span-7 glass-card p-6 space-y-4">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;" class="flex items-center gap-2">
+              <span>📊</span> تفصيل المؤشرات الرقمية للبشرة
+            </h3>
+
+            <!-- 1. Hydration -->
+            <div class="space-y-1">
+              <div class="flex justify-between" style="font-size: 0.8125rem; font-weight: 700;">
+                <span>مستوى الترطيب العميق (Hydration)</span>
+                <span id="valHydration" style="color: #0284c7;">70%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="barHydration" class="metric-bar-fill" style="width: 70%; background: linear-gradient(90deg, #06b6d4, #0284c7);"></div>
+              </div>
+            </div>
+
+            <!-- 2. Sebum Control -->
+            <div class="space-y-1">
+              <div class="flex justify-between" style="font-size: 0.8125rem; font-weight: 700;">
+                <span>التحكم بالإفرازات الدهنية (Sebum Balance)</span>
+                <span id="valSebum" style="color: #d97706;">55%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="barSebum" class="metric-bar-fill" style="width: 55%; background: linear-gradient(90deg, #f59e0b, #ea580c);"></div>
+              </div>
+            </div>
+
+            <!-- 3. Acne & Blemishes -->
+            <div class="space-y-1">
+              <div class="flex justify-between" style="font-size: 0.8125rem; font-weight: 700;">
+                <span>شدة الحبوب والشوائب (Acne & Blemishes)</span>
+                <span id="valAcne" style="color: #f43f5e;">25%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="barAcne" class="metric-bar-fill" style="width: 25%; background: linear-gradient(90deg, #fb7185, #e11d48);"></div>
+              </div>
+            </div>
+
+            <!-- 4. Redness & Sensitivity -->
+            <div class="space-y-1">
+              <div class="flex justify-between" style="font-size: 0.8125rem; font-weight: 700;">
+                <span>الاحمرار وتحسس الحاجز (Redness & Sensitivity)</span>
+                <span id="valRedness" style="color: #db2777;">30%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="barRedness" class="metric-bar-fill" style="width: 30%; background: linear-gradient(90deg, #f472b6, #db2777);"></div>
+              </div>
+            </div>
+
+            <!-- 5. Texture & Pores -->
+            <div class="space-y-1">
+              <div class="flex justify-between" style="font-size: 0.8125rem; font-weight: 700;">
+                <span>نعومة المسام والنسيج (Texture Smoothness)</span>
+                <span id="valTexture" style="color: #8b5cf6;">75%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="barTexture" class="metric-bar-fill" style="width: 75%; background: linear-gradient(90deg, #a78bfa, #7c3aed);"></div>
+              </div>
+            </div>
+
+            <!-- 6. Elasticity & Youth -->
+            <div class="space-y-1">
+              <div class="flex justify-between" style="font-size: 0.8125rem; font-weight: 700;">
+                <span>مرونة الجلد ومقاومة الخطوط (Elasticity)</span>
+                <span id="valElasticity" style="color: #10b981;">82%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="barElasticity" class="metric-bar-fill" style="width: 82%; background: linear-gradient(90deg, #34d399, #059669);"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Facial Zones Analysis Cards -->
+        <div class="glass-card p-6">
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;" class="flex items-center gap-2">
+            <span>🗺️</span> التشخيص الموضعي حسب مناطق الوجه (Zone Breakdown)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            <div class="p-3 glass-card" style="border-radius: 0.875rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">الجبهة (Forehead)</span>
+              <p id="zoneForehead" style="font-size: 0.8125rem; color: var(--text-main);">متوازنة مع لمعان طفيف</p>
+            </div>
+            <div class="p-3 glass-card" style="border-radius: 0.875rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">الأنف و T-Zone</span>
+              <p id="zoneTZone" style="font-size: 0.8125rem; color: var(--text-main);">إفراز دهني ومسام نشطة</p>
+            </div>
+            <div class="p-3 glass-card" style="border-radius: 0.875rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">الخدود (Cheeks)</span>
+              <p id="zoneCheeks" style="font-size: 0.8125rem; color: var(--text-main);">نضارة جيدة وترطيب ملائم</p>
+            </div>
+            <div class="p-3 glass-card" style="border-radius: 0.875rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">محيط العينين (Under-Eye)</span>
+              <p id="zoneUnderEye" style="font-size: 0.8125rem; color: var(--text-main);">خطوط جفاف طفيفة</p>
+            </div>
+            <div class="p-3 glass-card" style="border-radius: 0.875rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">الذقن والفك (Chin)</span>
+              <p id="zoneChin" style="font-size: 0.8125rem; color: var(--text-main);">شوائب خفيفة وحاجز سليم</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingredients Advice Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass-card p-6">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;" class="flex items-center gap-2">
+              <span style="color: #8b5cf6;">🧪</span> مكونات فعالة نوصي بالبحث عنها لبشرتك
+            </h4>
+            <div id="recommendedActivesList" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="glass-card p-6">
+            <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;" class="flex items-center gap-2">
+              <span style="color: #f43f5e;">🚫</span> مكونات يُفضل تجنبها في هذه المرحلة
+            </h4>
+            <div id="avoidIngredientsList" class="flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+
+        <!-- Dermatologist Rules -->
+        <div class="glass-card p-6">
+          <h4 style="font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem;" class="flex items-center gap-2">
+            <span>💡</span> نصائح وقواعد العناية الذهبية لبشرتك
+          </h4>
+          <ul id="dermatologistTipsList" class="space-y-2"></ul>
+        </div>
+
+        <!-- ==================== CURATED PRODUCTS & ROUTINE ==================== -->
+        <div class="glass-card p-8 space-y-6">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 800;" class="flex items-center gap-2">
+                <span>🧴</span> الروتين العلاجي المقترح والمنتجات المعتمدة
+              </h3>
+              <p style="font-size: 0.8125rem; color: var(--text-muted);">
+                روتين متكامل صباحي ومسائي مبني على مكونات علمية معتمدة ومتوافقة طبياً
+              </p>
+            </div>
+
+            <div class="flex items-center gap-1.5 p-1 glass-card" style="border-radius: 0.75rem;">
+              <button data-product-filter="all" class="btn-primary" style="padding: 0.375rem 0.75rem; font-size: 0.75rem; border-radius: 0.5rem;">الكل</button>
+              <button data-product-filter="budget" class="btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.75rem; border-radius: 0.5rem;">اقتصادي $</button>
+              <button data-product-filter="fragrance_free" class="btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.75rem; border-radius: 0.5rem;">خالٍ من العطور</button>
+            </div>
+          </div>
+
+          <!-- Morning Routine -->
+          <div class="space-y-3 pt-2">
+            <div class="badge-pill bg-amber-100" style="font-size: 0.8125rem;">
+              <span>☀️</span> روتين الصباح (Morning Protection Routine)
+            </div>
+            <div id="morningRoutineList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+          </div>
+
+          <!-- Evening Routine -->
+          <div class="space-y-3 pt-4" style="border-top: 1px solid var(--border-color);">
+            <div class="badge-pill bg-purple-100" style="font-size: 0.8125rem;">
+              <span>🌙</span> روتين المساء (Evening Cell Renewal & Repair)
+            </div>
+            <div id="eveningRoutineList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: AI CHATBOT ==================== -->
+    <section id="chatbotSection" class="tab-content-section hidden space-y-6">
+      <div class="glass-card p-6 max-w-4xl chat-viewport">
+        
+        <div class="flex items-center justify-between pb-4" style="border-bottom: 1px solid var(--border-color);">
+          <div class="flex items-center gap-3">
+            <div class="brand-badge" style="width: 2.5rem; height: 2.5rem;">
+              <div class="brand-badge-inner" style="font-size: 1rem;">
+                AI
+              </div>
+            </div>
+            <div>
+              <h3 style="font-size: 1.05rem; font-weight: 700;">المستشار التجميلي الذكي - skincare AI</h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">إرشادات موثوقة حول المكونات، الروتين، وعلاج مشاكل البشرة</p>
+            </div>
+          </div>
+          <span class="badge-pill bg-emerald-100">متصل ومستعد</span>
+        </div>
+
+        <div id="chatMessages" class="flex-1 p-4 space-y-3" style="overflow-y: auto;">
+          <div class="flex justify-start mb-3">
+            <div class="chat-bubble-assistant">
+              أهلاً بك! أنا مستشارك الذكي للعناية بالبشرة في <strong>skincare AI</strong>. يمكنك سؤالي عن نتائج تحليلك، كيفية دمج السيرومات، متى تستخدم المقشرات، أو هل منتج معين يناسب بشرتك!
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Chips -->
+        <div class="py-2 flex items-center gap-2" style="overflow-x: auto; font-size: 0.75rem;">
+          <span style="color: var(--text-muted); font-weight: 700; white-space: nowrap;">مقترحات:</span>
+          <button data-chat-prompt="كيف أصلح الحاجز الجلدي إذا شعرت باحمرار وحرقة؟" class="btn-secondary" style="border-radius: 9999px; padding: 0.25rem 0.75rem; white-space: nowrap;">
+            كيف أصلح حاجز البشرة؟
+          </button>
+          <button data-chat-prompt="كيف أبدأ استخدام الريتينول لأول مرة بدون تهيج؟" class="btn-secondary" style="border-radius: 9999px; padding: 0.25rem 0.75rem; white-space: nowrap;">
+            دليل استخدام الريتينول
+          </button>
+          <button data-chat-prompt="هل استخدام واقي الشمس ضروري داخل البيت قرب النوافذ؟" class="btn-secondary" style="border-radius: 9999px; padding: 0.25rem 0.75rem; white-space: nowrap;">
+            واقي الشمس داخل المنزل
+          </button>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="pt-3 flex items-center gap-2" style="border-top: 1px solid var(--border-color);">
+          <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا عن بشرتك أو المكونات..." class="form-input flex-1" style="padding: 0.75rem 1rem; border-radius: 1rem;">
+          <button id="sendChatBtn" class="btn-primary" style="padding: 0.75rem 1.25rem; border-radius: 1rem;">
+            <span>إرسال</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: INGREDIENT CHECKER ==================== -->
+    <section id="ingredientCheckerSection" class="tab-content-section hidden space-y-6">
+      <div class="glass-card p-8 max-w-4xl space-y-6">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 800;" class="flex items-center gap-2 mb-1">
+            <span>🧪</span> فاحص مكونات المستحضرات (Ingredient Safety & Comedogenic Checker)
+          </h2>
+          <p style="font-size: 0.8125rem; color: var(--text-muted);">
+            الصق قائمة المكونات (INCI List) المكتوبة على ظهر عبوة أي غسول أو كريم لمعرفة مدى أمانه وهل يسد المسام أو يسبب تهيجاً.
+          </p>
+        </div>
+
+        <div>
+          <textarea id="ingredientInput" rows="4" placeholder="مثال: Water, Niacinamide, Glycerin, Cetearyl Alcohol, Salicylic Acid, Fragrance, Isopropyl Myristate..." class="form-input" style="padding: 1rem; border-radius: 1rem; resize: vertical;"></textarea>
+          <div class="flex justify-end mt-2">
+            <button id="checkIngredientsBtn" class="btn-primary" style="padding: 0.625rem 1.25rem;">
+              فحص وتحليل المكونات
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Box -->
+        <div id="ingredientResultsBox" class="hidden space-y-4 pt-4" style="border-top: 1px solid var(--border-color);">
+          <div class="flex items-center justify-between p-4 glass-card" style="border-radius: 1rem;">
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">درجة أمان التركيبة:</span>
+              <h4 id="ingredientScoreVal" style="font-size: 1.75rem; font-weight: 900;">85/100</h4>
+              <p id="ingredientVerdictText" style="font-size: 0.8125rem; font-weight: 700; color: #059669;">منتج آمن ومتوازن</p>
+            </div>
+            <div style="text-align: left; font-size: 0.75rem; color: var(--text-muted);">
+              تحليل كوميدوجينيك ومسببات التحسس
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4" style="border-radius: 1rem; background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.2);">
+              <h5 style="font-size: 0.8125rem; font-weight: 700; color: #be123c; margin-bottom: 0.5rem;">⚠️ تنبيهات المكونات (المسامات / التحسس)</h5>
+              <ul id="ingredientWarningsList" class="space-y-1"></ul>
+            </div>
+
+            <div class="p-4" style="border-radius: 1rem; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2);">
+              <h5 style="font-size: 0.8125rem; font-weight: 700; color: #047857; margin-bottom: 0.5rem;">✓ المكونات الفعالة والمفيدة</h5>
+              <ul id="ingredientPositivesList" class="space-y-1"></ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: PROGRESS HISTORY ==================== -->
+    <section id="historySection" class="tab-content-section hidden space-y-6">
+      <div class="glass-card p-8 max-w-4xl space-y-4">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 800;" class="flex items-center gap-2 mb-1">
+            <span>📊</span> سجل التحليلات وتطور صحة البشرة
+          </h2>
+          <p style="font-size: 0.8125rem; color: var(--text-muted);">
+            تتبع تحسن مؤشرات بشرتك بمرور الأسابيع بعد الالتزام بالروتين الموصى به
+          </p>
+        </div>
+
+        <div id="historyListContainer" class="space-y-2"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="no-print mt-12 py-8" style="border-top: 1px solid var(--border-color); background: var(--bg-card);">
+    <div class="max-w-7xl text-center space-y-3 px-4">
+      <div class="flex items-center justify-center gap-2" style="font-weight: 800; font-size: 0.9375rem; color: #ec4899;">
+        <span>skincare AI</span> • <span>نظام تحليل البشرة والتجميل الذكي</span>
+      </div>
+      <p style="font-size: 0.75rem; color: var(--text-muted); max-width: 42rem; margin: 0 auto; line-height: 1.7;">
+        <strong>تنويه طبي مهم:</strong> هذا النظام يقدم إرشادات تجميلية وتوصيات روتينية استناداً إلى خوارزميات الذكاء الاصطناعي ومعايير العناية بالبشرة، ولا يغني عن التشخيص الطبي المتخصص من قبل طبيب الأمراض الجلدية في حالات الالتهابات الحادة أو الأمراض المزمنة.
+      </p>
+      <p style="font-size: 0.6875rem; color: var(--text-muted);">
+        © 2026 skincare AI. جميع الحقوق محفوظة.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts with cache busting -->
+  <script src="js/config.js?v=3"></script>
+  <script src="js/products-db.js?v=3"></script>
+  <script src="js/ai-engine.js?v=3"></script>
+  <script src="js/scanner.js?v=3"></script>
+  <script src="js/camera.js?v=3"></script>
+  <script src="js/chatbot.js?v=3"></script>
+  <script src="js/ingredient-checker.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>
